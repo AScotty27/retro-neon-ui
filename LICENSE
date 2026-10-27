@@ -19,15 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
--------------------------------------------------------------------------------
-Fonts (web/fonts/ and dotnet/fonts/) are NOT under the MIT license. Each is
-licensed under the SIL Open Font License 1.1; the license text with each font's
-copyright line ships next to the files (OFL-*.txt).
-
--------------------------------------------------------------------------------
-The bird logo images (logo/reference/, logo/normal/, logo/inverted/ and
-logo/web/) are NOT under the MIT license: Copyright (c) 2026 AScotty27, all
-rights reserved. They are included as the reference set for the owner's own
-projects; ask before using them in anything else. The logo tools
-(logo/tools/) are code and are MIT-licensed like the rest of the repository.

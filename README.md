@@ -122,7 +122,7 @@ badges (and a full lockup with any name: `--name "My App" --tag "My tagline"`) w
 
 ![Lockup example](docs/screenshots/lockup-example.png)
 
-The logo images are **not** MIT-licensed (see [LICENSE](LICENSE)); the tools are.
+The logo images are **not** MIT-licensed (see [logo/LICENSE.md](logo/LICENSE.md)); the tools are.
 
 ## Tests
 
@@ -150,5 +150,5 @@ Windows for the WPF and WinForms checks.
   Grotesk (The Space Grotesk Project Authors), Press Start 2P (The Press Start 2P Project Authors; Reserved Font
   Name, so it ships as the unmodified upstream TTF), VT323 (The VT323 Project Authors). `dotnet/fonts/` holds static
   instances of the Exo 2 and Space Grotesk variable fonts.
-- Logo images: not MIT, see [LICENSE](LICENSE).
+- Logo images: not MIT, see [logo/LICENSE.md](logo/LICENSE.md).
 - The look: 1980s TV station idents and arcade attract screens.
