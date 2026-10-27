@@ -1,6 +1,6 @@
 ---
 name: retro-neon-ui
-description: Use when asked to restyle, theme or "update the design" of an existing app with the retro-neon-ui look (1980s neon, CRT scanlines, rainbow speed stripes, modern accessible layout), or to build a new front end in that style. Covers web (any framework), React, Tailwind, SCSS, WPF and WinForms.
+description: Use when asked to restyle, theme or "update the design" of an existing app with the retro-neon-ui look (1980s neon, CRT scanlines, rainbow speed stripes, modern accessible layout), or to build a new front end in that style. Covers web (any framework), React, Tailwind, SCSS, WPF, WinForms and Grafana dashboards.
 ---
 
 # retro-neon-ui
@@ -35,7 +35,8 @@ Then read `CLAUDE.md` in the repo root in full. It is the complete procedure; th
 1. Find the stack (CLAUDE.md section 2): React = `web/retro.css` + `react/`; other web = `web/retro.css` +
    `web/retro.js` (`data-rt-transitions="off"` with a client-side router); Tailwind = `tokens/tailwind.preset.js` (v3)
    or `tokens/tailwind.theme.css` (v4) plus the web kit; SCSS = `tokens/_tokens.scss`; WPF = `dotnet/wpf/` +
-   `dotnet/fonts/`; WinForms = `dotnet/winforms/` + `dotnet/fonts/`.
+   `dotnet/fonts/`; WinForms = `dotnet/winforms/` + `dotnet/fonts/`; a Grafana dashboard = export it, run
+   `grafana/tools/apply_theme.py`, import the result (`grafana/README.md`; never change its queries).
 2. Map the app's parts to kit parts (CLAUDE.md section 3; `web/demo/index.html` shows every web class in use).
 3. Install per stack (CLAUDE.md section 4), restyle screen by screen.
 4. Avoid the traps (CLAUDE.md section 5): overrides must be `.rt .x`; nav styles direct-child links only; glitch on

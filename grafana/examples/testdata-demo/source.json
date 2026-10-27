@@ -1,0 +1,461 @@
+{
+  "uid": "retro-neon-demo",
+  "title": "Retro Neon Demo",
+  "tags": [
+    "retro-neon-ui",
+    "demo"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "refresh": "",
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "graphTooltip": 1,
+  "editable": true,
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "alertlist",
+      "title": "Active alerts",
+      "description": "Alert rules that are firing or pending.",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 7,
+        "h": 9
+      },
+      "options": {
+        "viewMode": "list",
+        "maxItems": 10,
+        "sortOrder": 1,
+        "dashboardAlerts": false,
+        "showInstances": true,
+        "groupMode": "default",
+        "alertName": "",
+        "alertInstanceLabelFilter": "",
+        "stateFilter": {
+          "firing": true,
+          "pending": true,
+          "error": true,
+          "noData": true,
+          "normal": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "CPU used over time",
+      "description": "Average CPU busy across all cores. The line colour is the load level.",
+      "gridPos": {
+        "x": 7,
+        "y": 0,
+        "w": 17,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "rt-testdata"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 1,
+          "min": 0.0,
+          "max": 100.0,
+          "startValue": 33.333333333333336,
+          "alias": "cpu"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0,
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 65
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Memory breakdown",
+      "description": "Used, cache and buffers.",
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "rt-testdata"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 1,
+          "min": 8000000000.0,
+          "max": 20000000000.0,
+          "startValue": 12000000000.0,
+          "alias": "Used"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 1,
+          "min": 20000000000.0,
+          "max": 30000000000.0,
+          "startValue": 23333333333.333332,
+          "alias": "Cache"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 1,
+          "min": 1000000000.0,
+          "max": 2000000000.0,
+          "startValue": 1333333333.3333333,
+          "alias": "Buffers"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Network by service",
+      "description": "Traffic per service.",
+      "gridPos": {
+        "x": 12,
+        "y": 9,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "rt-testdata"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 4,
+          "min": 0,
+          "max": 5000000.0,
+          "startValue": 1666666.6666666667
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 1,
+            "fillOpacity": 0
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "bargauge",
+      "title": "Top services by memory",
+      "description": "Working set per service.",
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "rt-testdata"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "random_walk",
+          "seriesCount": 6,
+          "min": 100000000.0,
+          "max": 2000000000.0,
+          "startValue": 733333333.3333334
+        }
+      ],
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "showUnfilled": true,
+        "valueMode": "color",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "min": 0,
+          "max": 2500000000.0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1000000000.0
+              },
+              {
+                "color": "red",
+                "value": 2000000000.0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 6,
+      "type": "state-timeline",
+      "title": "Service status history",
+      "description": "1 = up, 0 = down.",
+      "gridPos": {
+        "x": 12,
+        "y": 18,
+        "w": 12,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "rt-testdata"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,1,1,1,1,1,1,1",
+          "alias": "api"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,1,1,0,0,1,1,1",
+          "alias": "worker"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,1,1,1,1,1,1,1",
+          "alias": "web"
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,1,1,1,1,1,0,0",
+          "alias": "queue"
+        }
+      ],
+      "options": {
+        "mergeValues": true,
+        "showValue": "auto",
+        "rowHeight": 0.9,
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "color": "red",
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "Up"
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      }
+    }
+  ],
+  "description": "Demo dashboard on the built-in TestData data source (no real metrics)."
+}

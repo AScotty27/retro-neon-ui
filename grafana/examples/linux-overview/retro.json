@@ -1,0 +1,236 @@
+{
+  "intro": {
+    "title": "LINUX OVERVIEW",
+    "tag": "Server status"
+  },
+  "add": [
+    {
+      "kind": "status-hud",
+      "height": 11,
+      "description": "Host summary: the worst problem is named first.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"$instance\"}[5m])) * 100)"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "node_memory_MemTotal_bytes{instance=\"$instance\"} - node_memory_MemAvailable_bytes{instance=\"$instance\"}"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "node_memory_MemTotal_bytes{instance=\"$instance\"}"
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "node_load5{instance=\"$instance\"} / scalar(count(count by (cpu) (node_cpu_seconds_total{mode=\"idle\", instance=\"$instance\"})))"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "time() - node_boot_time_seconds{instance=\"$instance\"}"
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "count(count by (cpu) (node_cpu_seconds_total{mode=\"idle\", instance=\"$instance\"}))"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "max(100 * (node_filesystem_size_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} - node_filesystem_free_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"}) / (node_filesystem_size_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} - node_filesystem_free_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} + node_filesystem_avail_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"}))"
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "max(100 * rate(node_disk_io_time_seconds_total{instance=\"$instance\", device!~\"loop.*|ram.*|dm-.*|zram.*\"}[5m]))"
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "count(max by (name) (max_over_time(container_last_seen{instance=\"$cadvisor\", image!=\"\"}[1h]))) - (count(max by (name) ((time() - container_last_seen{instance=\"$cadvisor\", image!=\"\"}) < 120)) or vector(0))"
+        },
+        {
+          "refId": "J",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "count(max by (name) ((time() - container_last_seen{instance=\"$cadvisor\", image!=\"\"}) < 120))"
+        },
+        {
+          "refId": "K",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "count(max by (name) (max_over_time(container_last_seen{instance=\"$cadvisor\", image!=\"\"}[1h])))"
+        }
+      ],
+      "config": {
+        "title": "$instance",
+        "kicker": "Linux server overview",
+        "meters": [
+          {
+            "label": "CPU used",
+            "value": "A",
+            "format": "percent",
+            "warn": 65,
+            "crit": 85,
+            "hint": "Last 5 minutes"
+          },
+          {
+            "label": "RAM used",
+            "value": {
+              "ratio": [
+                "B",
+                "C"
+              ],
+              "scale": 100
+            },
+            "format": "percent",
+            "warn": 75,
+            "crit": 90,
+            "hint": "{B:bytes} of {C:bytes}"
+          },
+          {
+            "label": "Load / core",
+            "value": "D",
+            "format": "number2",
+            "warn": 0.7,
+            "crit": 1,
+            "bar": {
+              "max": 1
+            },
+            "hint": "5 min, 1.00 = full"
+          },
+          {
+            "label": "Max FS used",
+            "value": "G",
+            "format": "percent",
+            "warn": 75,
+            "crit": 90,
+            "hint": "Worst mount"
+          },
+          {
+            "label": "Busiest disk",
+            "value": "H",
+            "format": "percent",
+            "warn": 50,
+            "crit": 80,
+            "hint": "5 minute peak"
+          },
+          {
+            "label": "Containers down",
+            "value": "I",
+            "format": "int",
+            "warn": 1,
+            "crit": 1,
+            "bar": {
+              "maxRef": "K"
+            },
+            "hint": "{J:int}/{K:int} reporting",
+            "critText": "{value:int} CONTAINER(S) DOWN"
+          }
+        ],
+        "chips": [
+          "{F:int} CORES",
+          "UPTIME {E:duration}",
+          "{J:int} / {K:int} LIVE"
+        ]
+      }
+    },
+    {
+      "kind": "storage-cells",
+      "height": 7,
+      "description": "Percent used and free space per mount.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "100 * (node_filesystem_size_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} - node_filesystem_free_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"}) / (node_filesystem_size_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} - node_filesystem_free_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"} + node_filesystem_avail_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"})"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "node_filesystem_avail_bytes{instance=\"$instance\", mountpoint=~\"$mountpoint\", fstype!~\"tmpfs|devtmpfs|squashfs|overlay|fuse.*|proc|sysfs|ramfs|nsfs\"}"
+        }
+      ],
+      "config": {
+        "title": "Filesystems",
+        "subtitle": "used + free space",
+        "usedRef": "A",
+        "freeRef": "B",
+        "label": "mountpoint",
+        "order": [
+          "/"
+        ]
+      }
+    },
+    {
+      "kind": "service-grid",
+      "height": 10,
+      "description": "Every container cAdvisor saw in the last hour; down = not seen for 120 s.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds}"
+          },
+          "expr": "(max by (name) ((time() - container_last_seen{instance=\"$cadvisor\", image!=\"\"}) < 120) * 0) or (max by (name) (max_over_time(container_last_seen{instance=\"$cadvisor\", image!=\"\"}[1h])) * 0 + 1)"
+        }
+      ],
+      "config": {
+        "title": "Container health",
+        "refId": "A",
+        "label": "name",
+        "downWhen": "nonzero"
+      }
+    }
+  ],
+  "seriesColors": {
+    "3": {
+      "Used": "#ff2e9a",
+      "Cache": "#2de2ff",
+      "Buffers": "#4d5bff"
+    }
+  }
+}

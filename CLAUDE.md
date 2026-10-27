@@ -36,6 +36,7 @@ usability or accessibility. This file is the whole procedure. Read it top to bot
 | `.csproj` with `<UseWPF>true</UseWPF>`, or an older project with `*.xaml` windows | `dotnet/wpf/` + `dotnet/fonts/` (also for .NET Framework) |
 | `.csproj` with `<UseWindowsForms>true</UseWindowsForms>`, or an older project referencing `System.Windows.Forms`, `*.Designer.cs` | `dotnet/winforms/` + `dotnet/fonts/` (C# 7.3, also for .NET Framework) |
 | Electron, Tauri, WebView2 | the web kit, chosen by the front-end framework as above |
+| a Grafana dashboard (exported JSON, or `/api/dashboards/uid/<uid>`) | `grafana/`: `tools/apply_theme.py` + a config (section 4, Grafana) |
 | anything else (Qt, Swing, Flutter, a terminal UI) | `tokens/tokens.json`: copy the colours, fonts and radius by hand |
 
 An app can match several rows (a React app with Tailwind uses both). Read `docs/stacks.md` for what each stack gets
@@ -151,6 +152,24 @@ Still load `web/retro.css` for the components and effects; Tailwind's preflight 
 6. The three files are C# 7.3: they compile in .NET Framework projects (tested as a 4.8 library) as well as .NET 8.
    TabControl tab headers, ProgressBar and DateTimePicker stay system-drawn.
 
+### Grafana
+
+1. Read `grafana/README.md`. The dashboard needs the HTML Graphics panel plugin (`gapit-htmlgraphics-panel` 2.2+)
+   for the retro panels and the page theme; without it, use `--native-only`. Ask before installing a plugin on a
+   shared Grafana.
+2. Export the dashboard JSON and note its current version (Settings > Versions): that is the one-click rollback.
+3. Write `retro.json` (start from `grafana/examples/linux-overview/retro.json` or the demo): a `status-hud` for the
+   headline numbers people check first, `storage-cells` or `service-grid` where they fit, `seriesColors` for charts
+   whose series have fixed meanings. Every HUD meter's query keeps the same PromQL/SQL the old panel used.
+4. `python grafana/tools/apply_theme.py dashboard.json --config retro.json -o dashboard-retro.json`. It fails if any
+   query or info note changed; never edit the output to get around that.
+5. Try it as a copy first (`--copy <new-uid>`, import, check), then build without `--copy` and replace the real
+   one. Never edit the uid in the output: the page theme is scoped to the uid it was built for.
+6. A "containers down" or "service down" query must still return the dead ones: a stopped target's series goes
+   stale at once, so "last seen > 120 s ago" alone never fires. Use the pattern in
+   `grafana/examples/linux-overview/make_linux.py` (seen in the last hour, not seen now).
+7. Ask before the attract-mode intro on a dashboard people open many times a day (leave `intro` out).
+
 ### Changing colours
 
 Edit `tokens/tokens.json`, run `python tokens/build_tokens.py`, and copy the regenerated files. Never hand-edit the
@@ -199,7 +218,8 @@ generated block in `retro.css` or the generated `.cs` / `.xaml` / `.scss` / Tail
 | `dotnet/wpf/` | WPF resource dictionaries (generated `RetroColors.xaml`, `RetroNeon.xaml`, `RetroNeon.Implicit.xaml`) |
 | `dotnet/winforms/` | `RetroPalette.cs` (generated), `RetroFonts.cs`, `RetroTheme.cs` |
 | `dotnet/fonts/` | static TTF fonts for WPF and WinForms (with their OFL licences) |
+| `grafana/` | Grafana dashboards: `tools/apply_theme.py`, `theme/` (page theme), `panels/` (retro panel kinds), `examples/` |
 | `logo/` | the owner's bird logo: `normal/`, `inverted/`, `web/` icons, `reference/` original, `tools/` pipeline |
 | `docs/` | `flair.md` (what each effect is), `stacks.md` (per-stack notes), `screenshots/` |
-| `tests/` | `run_all.py` and the checks it runs (tokens, PNG metadata, logo rebuild, React, browser, WPF, WinForms, .NET Framework compile) |
+| `tests/` | `run_all.py` and the checks it runs (tokens, PNG metadata, logo rebuild, React, browser, WPF, WinForms, .NET Framework compile, Grafana) |
 | `skill/retro-neon-ui/SKILL.md` | this guide as a Claude Code skill |

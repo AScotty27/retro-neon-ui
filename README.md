@@ -21,6 +21,7 @@ SCSS, WPF and WinForms.
 | plain CSS variables | `tokens/tokens.css` | the `--rt-*` custom properties alone |
 | WPF | `dotnet/wpf/*.xaml`, `dotnet/fonts/` | brushes, glows, fonts; styles for windows, text, buttons, inputs, check boxes, switches, progress, cards, alerts, tags, grids, scroll bars and tooltips; app-wide implicit styles |
 | WinForms (.NET 8 or .NET Framework) | `dotnet/winforms/*.cs`, `dotnet/fonts/` | palette, font loader, one-call theme for a whole form, `StripeBar` |
+| Grafana dashboards | `grafana/` | `tools/apply_theme.py` themes any exported dashboard: page theme, neon charts, LCD gauges, status HUD with LED meters, storage cells, service health grid; queries untouched ([grafana/README.md](grafana/README.md)) |
 | anything else | `tokens/tokens.json` | the palette, glows, fonts and radius as data |
 
 `tokens/tokens.json` is the single source: `python tokens/build_tokens.py` regenerates every stack's token file.
@@ -138,6 +139,7 @@ The logo images are **not** MIT-licensed (see [logo/LICENSE.md](logo/LICENSE.md)
 | `tests/wpf` | the XAML compiles, every font key resolves to its shipped file, a sample renders offscreen |
 | `tests/winforms` | the C# compiles, GDI really draws the kit fonts, the theme keeps app colours and RichTextBox formatting, a themed form renders offscreen |
 | `tests/netfx` | the WinForms C# and the WPF XAML also build as a .NET Framework 4.8 library (C# 7.3) |
+| `tests/check_grafana.py` | the Grafana examples rebuild byte for byte, panel scripts parse, the query and info-note guards catch planted changes, every page rule is scoped, the retro panels show the right values from fake data; with `RT_GRAFANA_URL` set, a live import and browser run on that (throwaway) Grafana |
 
 Needs Python 3 (tested with 3.12) with `pip install -r logo/tools/requirements.txt` and
 `python -m playwright install chromium`; Node 18 or newer for the React check (tested with 24); the .NET 8 SDK on

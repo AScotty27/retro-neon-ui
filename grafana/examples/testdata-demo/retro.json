@@ -1,0 +1,261 @@
+{
+  "intro": {
+    "title": "NEON OPS",
+    "tag": "System overview"
+  },
+  "add": [
+    {
+      "kind": "status-hud",
+      "height": 11,
+      "description": "Host summary: the worst problem is named first.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "12,18,31,24,27",
+          "alias": "cpu"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "17200000000.0,17400000000.0",
+          "alias": "ram used"
+        },
+        {
+          "refId": "C",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "64000000000.0,64000000000.0",
+          "alias": "ram total"
+        },
+        {
+          "refId": "D",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "0.31,0.42",
+          "alias": "load per core"
+        },
+        {
+          "refId": "E",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1310000,1310100",
+          "alias": "uptime"
+        },
+        {
+          "refId": "F",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "16,16",
+          "alias": "cores"
+        },
+        {
+          "refId": "G",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "61,61.3",
+          "alias": "max fs"
+        },
+        {
+          "refId": "H",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "4.2,7.9",
+          "alias": "disk busy"
+        },
+        {
+          "refId": "I",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "1,1",
+          "alias": "down"
+        },
+        {
+          "refId": "J",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "11,11",
+          "alias": "live"
+        },
+        {
+          "refId": "K",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "csv_metric_values",
+          "stringInput": "12,12",
+          "alias": "total"
+        }
+      ],
+      "config": {
+        "title": "Neon Ops",
+        "kicker": "System overview",
+        "meters": [
+          {
+            "label": "CPU used",
+            "value": "A",
+            "format": "percent",
+            "warn": 65,
+            "crit": 85,
+            "hint": "Last 5 minutes"
+          },
+          {
+            "label": "RAM used",
+            "value": {
+              "ratio": [
+                "B",
+                "C"
+              ],
+              "scale": 100
+            },
+            "format": "percent",
+            "warn": 75,
+            "crit": 90,
+            "hint": "{B:bytes} of {C:bytes}"
+          },
+          {
+            "label": "Load / core",
+            "value": "D",
+            "format": "number2",
+            "warn": 0.7,
+            "crit": 1,
+            "bar": {
+              "max": 1
+            },
+            "hint": "5 min, 1.00 = full"
+          },
+          {
+            "label": "Max FS used",
+            "value": "G",
+            "format": "percent",
+            "warn": 75,
+            "crit": 90,
+            "hint": "Worst mount"
+          },
+          {
+            "label": "Busiest disk",
+            "value": "H",
+            "format": "percent",
+            "warn": 50,
+            "crit": 80,
+            "hint": "5 minute peak"
+          },
+          {
+            "label": "Services down",
+            "value": "I",
+            "format": "int",
+            "warn": 1,
+            "crit": 1,
+            "bar": {
+              "maxRef": "K"
+            },
+            "hint": "{J:int}/{K:int} reporting",
+            "critText": "{value:int} SERVICE(S) DOWN"
+          }
+        ],
+        "chips": [
+          "{F:int} CORES",
+          "UPTIME {E:duration}",
+          "{J:int} / {K:int} LIVE"
+        ]
+      }
+    },
+    {
+      "kind": "storage-cells",
+      "height": 7,
+      "description": "Percent used and free space per mount.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "raw_frame",
+          "rawFrameContent": "[{\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/\"}}]}, \"data\": {\"values\": [[41.2]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/var\"}}]}, \"data\": {\"values\": [[61.3]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/srv\"}}]}, \"data\": {\"values\": [[22.8]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/backup\"}}]}, \"data\": {\"values\": [[77.4]]}}]"
+        },
+        {
+          "refId": "B",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "raw_frame",
+          "rawFrameContent": "[{\"schema\": {\"refId\": \"B\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/\"}}]}, \"data\": {\"values\": [[58000000000.0]]}}, {\"schema\": {\"refId\": \"B\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/var\"}}]}, \"data\": {\"values\": [[210000000000.0]]}}, {\"schema\": {\"refId\": \"B\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/srv\"}}]}, \"data\": {\"values\": [[1400000000000.0]]}}, {\"schema\": {\"refId\": \"B\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"mountpoint\": \"/backup\"}}]}, \"data\": {\"values\": [[900000000000.0]]}}]"
+        }
+      ],
+      "config": {
+        "title": "Filesystems",
+        "subtitle": "used + free space",
+        "usedRef": "A",
+        "freeRef": "B",
+        "label": "mountpoint",
+        "order": [
+          "/"
+        ]
+      }
+    },
+    {
+      "kind": "service-grid",
+      "height": 6,
+      "description": "Every scrape target: up or down.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "rt-testdata"
+          },
+          "scenarioId": "raw_frame",
+          "rawFrameContent": "[{\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"api\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"web\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"worker\"}}]}, \"data\": {\"values\": [[0]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"queue\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"cache\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"db\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"auth\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"search\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"mailer\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"scheduler\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"metrics\"}}]}, \"data\": {\"values\": [[1]]}}, {\"schema\": {\"refId\": \"A\", \"fields\": [{\"name\": \"Value\", \"type\": \"number\", \"labels\": {\"job\": \"gateway\"}}]}, \"data\": {\"values\": [[1]]}}]"
+        }
+      ],
+      "config": {
+        "title": "Service health",
+        "refId": "A",
+        "label": "job",
+        "downWhen": "zero"
+      }
+    }
+  ],
+  "seriesColors": {
+    "3": {
+      "Used": "#ff2e9a",
+      "Cache": "#2de2ff",
+      "Buffers": "#4d5bff"
+    }
+  }
+}

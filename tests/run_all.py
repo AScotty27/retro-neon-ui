@@ -10,6 +10,8 @@
 6. wpf: build the dictionaries, check fonts and keys, render offscreen  (skipped without dotnet)
 7. winforms: compile, check fonts and GDI text, render offscreen        (skipped without dotnet)
 8. netfx: the WinForms C# and WPF XAML build for .NET Framework 4.8      (skipped without dotnet)
+9. grafana: examples rebuild, panel scripts parse, guards bite, panel logic in Chromium; plus a live Grafana run
+   when RT_GRAFANA_URL and credentials are set (see tests/check_grafana.py)
 --docs writes the screenshots to docs/screenshots/ instead of tests/output/.
 """
 import shutil
@@ -39,6 +41,7 @@ def main():
         ("wpf", [dotnet or "dotnet", "run", "-c", "Release", "--", str(shots / "wpf-sample.png")], TESTS / "wpf", bool(dotnet)),
         ("winforms", [dotnet or "dotnet", "run", "-c", "Release", "--", str(shots / "winforms-sample.png")], TESTS / "winforms", bool(dotnet)),
         ("netfx", [dotnet or "dotnet", "build", "-c", "Release"], TESTS / "netfx", bool(dotnet)),
+        ("grafana", [py, str(TESTS / "check_grafana.py")] + (["--docs"] if docs else []), ROOT, True),
     ]
     results = []
     for name, cmd, cwd, available in steps:
