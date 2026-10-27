@@ -1,0 +1,17 @@
+{
+  "name": "retro-neon-ui-react-smoke",
+  "private": true,
+  "description": "Type-checks react/RetroNeon.tsx and bundles a test page that renders every component.",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "build": "esbuild smoke.tsx --bundle --jsx=automatic --format=iife --outfile=out/smoke.js --alias:react=./node_modules/react --alias:react-dom=./node_modules/react-dom --log-level=warning"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "esbuild": "0.28.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.9.3"
+  }
+}

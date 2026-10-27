@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" class="rt">
+<head>
+<meta charset="utf-8">
+<title>Neon logo lockups</title>
+<!-- Template for render_lockups.py, served from 127.0.0.1: /web/ = the repo's web folder, /work/ = the work folder.
+     The wordmark and tagline are placeholders; render_lockups.py fills in --name and --tag before the screenshots. -->
+<link rel="stylesheet" href="/web/retro.css">
+<style>
+  /* Static renders: every kit animation pinned to its end state. */
+  .static *, .static *::before, .static *::after { animation: none !important; }
+  html, body { background: transparent !important; }
+  body { margin: 0; padding: 40px; font-family: var(--rt-font-body); color: var(--rt-text); }
+  .row { display: flex; gap: 40px; align-items: center; margin-bottom: 40px; }
+
+  /* Badge: the bird in a lit neon ring on a dark disc. */
+  .badge {
+    --size: 1024px;
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    flex: none;
+  }
+  .badge__disc {
+    position: absolute;
+    inset: 3.5%;
+    border-radius: 50%;
+    background:
+      repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0 2px, transparent 2px 5px),
+      radial-gradient(circle at 50% 38%, #1d1440 0%, #0b0818 62%, #05040b 100%);
+    box-shadow: inset 0 0 calc(var(--size) * 0.06) rgba(166, 61, 255, 0.35);
+  }
+  .badge__ring {
+    position: absolute;
+    inset: 3.5%;
+    border-radius: 50%;
+    border: calc(var(--size) * 0.028) solid var(--rt-yellow);
+    box-shadow:
+      0 0 calc(var(--size) * 0.006) #fff6a0,
+      0 0 calc(var(--size) * 0.03) rgba(255, 214, 10, 0.9),
+      0 0 calc(var(--size) * 0.07) rgba(255, 140, 26, 0.55),
+      inset 0 0 calc(var(--size) * 0.03) rgba(255, 214, 10, 0.6);
+  }
+  .badge__bird {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 86%;
+    transform: translate(-50%, -49%);
+  }
+  .badge--b .badge__ring { border-color: #fff; box-shadow:
+      0 0 calc(var(--size) * 0.006) #fff,
+      0 0 calc(var(--size) * 0.03) rgba(255, 46, 154, 0.9),
+      0 0 calc(var(--size) * 0.07) rgba(45, 226, 255, 0.5),
+      inset 0 0 calc(var(--size) * 0.03) rgba(255, 46, 154, 0.6); }
+
+  /* Lockup: speed stripes + badge + wordmark, the intro composition. */
+  .lockup { display: flex; align-items: center; gap: 46px; padding: 60px 80px; }
+  .lockup .rt-mark__stripes { --rt-mark-size: 420px; height: 380px; gap: 22px; }
+  .lockup .rt-mark__stripes i { width: 34px; }
+  .lockup .badge { --size: 440px; }
+  .lockup__word { display: grid; gap: 26px; }
+  .lockup__name {
+    position: relative;
+    color: var(--rt-yellow);
+    font: italic 900 210px/0.86 var(--rt-font-display);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-shadow: -5px 0 rgba(255, 46, 154, 0.75), 5px 0 rgba(45, 226, 255, 0.75), var(--rt-glow-yellow),
+      0 0 70px rgba(255, 140, 26, 0.45);
+  }
+  .lockup__tag {
+    color: var(--rt-cyan);
+    font: 400 44px/1 var(--rt-font-pixel);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-shadow: var(--rt-glow-cyan);
+  }
+  .lockup__trail { height: 26px; background: linear-gradient(180deg,
+      var(--rt-c2) 0 6px, transparent 6px 10px, var(--rt-c3) 10px 16px, transparent 16px 20px, var(--rt-c6) 20px 26px);
+    filter: drop-shadow(0 0 10px rgba(255, 46, 154, 0.6)); }
+
+  /* Size test sheet. */
+  .sizes { display: flex; gap: 36px; align-items: flex-end; padding: 36px; background: #07060d; border: 1px solid var(--rt-line); }
+  .sizes figure { margin: 0; display: grid; gap: 10px; justify-items: center; }
+  .sizes figcaption { font: 400 18px/1 var(--rt-font-term); color: var(--rt-muted); }
+  .sizes img { display: block; image-rendering: auto; }
+</style>
+</head>
+<body class="static">
+  <div class="row">
+    <div class="badge" id="badge-a"><div class="badge__disc"></div><img class="badge__bird" src="/work/concept-a-sign-transparent.png" alt=""><div class="badge__ring"></div></div>
+  </div>
+  <div class="row">
+    <div class="badge badge--b" id="badge-b"><div class="badge__disc"></div><img class="badge__bird" src="/work/concept-b-ident-transparent.png" alt=""><div class="badge__ring"></div></div>
+  </div>
+  <div class="row">
+    <div class="lockup" id="lockup-a">
+      <span class="rt-mark__stripes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <div class="badge"><div class="badge__disc"></div><img class="badge__bird" src="/work/concept-a-sign-transparent.png" alt=""><div class="badge__ring"></div></div>
+      <div class="lockup__word"><span class="lockup__name">Neon App</span><span class="lockup__trail"></span><span class="lockup__tag">Your tagline</span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="lockup" id="lockup-b">
+      <span class="rt-mark__stripes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <div class="badge badge--b"><div class="badge__disc"></div><img class="badge__bird" src="/work/concept-b-ident-transparent.png" alt=""><div class="badge__ring"></div></div>
+      <div class="lockup__word"><span class="lockup__name">Neon App</span><span class="lockup__trail"></span><span class="lockup__tag">Your tagline</span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="sizes" id="sizes"></div>
+  </div>
+</body>
+</html>

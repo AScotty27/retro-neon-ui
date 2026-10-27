@@ -1,0 +1,6 @@
+# Versions the shipped logo set was built with (byte-identical rebuilds need these; others give the same look).
+numpy==2.5.1
+scipy==1.18.0
+scikit-image==0.26.0
+pillow==12.2.0
+playwright==1.54.0

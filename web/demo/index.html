@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en" class="rt" data-rt-intro-title="Neon App" data-rt-intro-tag="Retro neon UI kit"
+      data-rt-intro-logo="../../logo/inverted/bird-transparent.png" data-rt-intro-logo-fit="contain">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>retro-neon-ui demo</title>
+  <link rel="icon" href="../../logo/web/favicon-64.png" type="image/png">
+  <link rel="stylesheet" href="../retro.css">
+  <script src="../retro.js"></script>
+  <style>
+    /* Demo page layout only. The look comes from retro.css; nothing here is needed in an app. */
+    *, *::before, *::after { box-sizing: border-box; }
+    .demo-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; }
+    .demo-main { display: grid; gap: 1.4rem; padding: 4rem 0 3rem; }
+    .demo-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr)); }
+    .demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+    .demo-stack { display: grid; gap: 1rem; align-content: start; }
+    .demo-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 1.2rem; align-items: start; }
+    .demo-hero-mark { --rt-mark-size: clamp(64px, 9vw, 92px); --rt-ring-delay: 0.35s; --rt-logo-delay: 0.7s;
+      justify-content: center; margin: 0 auto 2rem; }
+    .demo-ident { --rt-mark-size: 64px; }
+    .demo-note { margin: 0; color: var(--rt-muted); line-height: 1.7; }
+    .demo-section { scroll-margin-top: 6rem; }
+    @media (max-width: 760px) {
+      .demo-bar { flex-direction: column; align-items: flex-start; }
+      .rt .rt-nav { width: 100%; justify-content: center; }
+      .rt .rt-nav > a { flex: 1 1 auto; padding-inline: 0.5rem; font-size: 1.2rem; text-align: center; }
+      .demo-layout { grid-template-columns: 1fr; }
+      .rt .rt-hero { --rt-grid-height: 170px; padding-top: 3.25rem; }
+    }
+  </style>
+</head>
+<body>
+<div data-rt-shell>
+  <header class="rt-header">
+    <div class="rt-container demo-bar">
+      <a class="rt-brand" href="./">
+        <img class="rt-brand-logo" src="../../logo/normal/disc-128.png" alt="" width="40" height="40">
+        <strong>Neon App</strong>
+      </a>
+      <nav class="rt-nav" aria-label="Main">
+        <a href="./" aria-current="page">Home</a>
+        <a href="#components">Parts</a>
+        <a href="#forms">Forms</a>
+        <a href="#data">Data</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="rt-hero">
+    <div class="rt-container">
+      <div class="rt-mark rt-mark--contain demo-hero-mark">
+        <span class="rt-mark__stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="rt-mark__ring">
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="46"></circle></svg>
+          <img src="../../logo/normal/bird-transparent.png" alt="" width="72" height="72">
+        </span>
+      </div>
+      <span class="rt-kicker">Modern UI, 1984 broadcast</span>
+      <h1 class="rt-hero-title">Neon App</h1>
+      <p class="rt-lead">Every component of the retro-neon-ui kit on one page: neon tubes, CRT scanlines, RGB split,
+        rainbow speed stripes and TV power-on, on top of a responsive, accessible layout.</p>
+      <div class="rt-actions">
+        <a class="rt-btn rt-btn-primary" href="#components">Start</a>
+        <a class="rt-btn rt-btn-secondary" href="#forms">See forms</a>
+      </div>
+    </div>
+    <div class="rt-grid" aria-hidden="true"></div>
+  </section>
+
+  <main class="rt-container demo-main">
+    <header class="rt-page-header demo-section" id="components">
+      <h2 class="rt-title" data-rt-glitch>Components</h2>
+      <p>All systems nominal</p>
+    </header>
+
+    <div class="demo-grid">
+      <section class="rt-card" data-rt-reveal aria-labelledby="h-buttons">
+        <h3 class="rt-subtitle" id="h-buttons">Buttons</h3>
+        <div class="demo-row">
+          <button class="rt-btn rt-btn-primary" type="button">Primary</button>
+          <button class="rt-btn rt-btn-secondary" type="button">Secondary</button>
+          <button class="rt-btn rt-btn-success" type="button">Success</button>
+          <button class="rt-btn rt-btn-danger" type="button">Danger</button>
+          <button class="rt-btn rt-btn-neutral" type="button">Neutral</button>
+          <button class="rt-btn rt-btn-primary rt-btn-small" type="button">Small</button>
+          <button class="rt-btn rt-btn-secondary" type="button" disabled>Disabled</button>
+        </div>
+      </section>
+
+      <section class="rt-card" data-rt-reveal aria-labelledby="h-tags">
+        <h3 class="rt-subtitle" id="h-tags">Tags and status</h3>
+        <div class="demo-row">
+          <span class="rt-tag">Default</span>
+          <span class="rt-tag rt-tag-accent">Accent</span>
+          <span class="rt-tag rt-tag-info">Info</span>
+          <span class="rt-tag rt-tag-success">Online</span>
+          <span class="rt-tag rt-tag-warning">Pending</span>
+          <span class="rt-tag rt-tag-danger">Failed</span>
+        </div>
+        <p class="rt-status">Ready</p>
+        <p class="rt-meta">Build 2.4.1 / 14 modules</p>
+      </section>
+
+      <section class="rt-card" data-rt-reveal aria-labelledby="h-progress">
+        <h3 class="rt-subtitle" id="h-progress">Progress</h3>
+        <div class="demo-stack">
+          <div class="rt-progress" role="progressbar" aria-label="Upload" aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="40" style="--rt-value: 40%"></div>
+          <div class="rt-progress" role="progressbar" aria-label="Sync" aria-valuemin="0" aria-valuemax="100"
+               aria-valuenow="85" style="--rt-value: 85%"></div>
+          <div class="rt-progress rt-progress-indeterminate" role="progressbar" aria-label="Working"></div>
+          <div class="demo-row">
+            <span class="rt-spinner" role="status"><span class="rt-sr-only">Loading</span></span>
+            <label class="rt-switch"><input type="checkbox" role="switch" checked> <span>Autosave</span></label>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="demo-stack" role="group" aria-label="Alerts">
+      <div class="rt-alert" role="status"><span><strong>Heads up.</strong> A new version is ready to install.</span></div>
+      <div class="rt-alert rt-alert-success" role="status"><span><strong>Saved.</strong> Your changes are live.</span></div>
+      <div class="rt-alert rt-alert-warning" role="status"><span><strong>Low disk.</strong> 4 GB left on the build drive.</span></div>
+      <div class="rt-alert rt-alert-danger" role="alert"><span><strong>Sync failed.</strong> Check the connection and retry.</span></div>
+    </div>
+
+    <header class="rt-page-header demo-section" id="forms">
+      <h2 class="rt-title" data-rt-glitch>Forms</h2>
+      <p>Enter your details</p>
+    </header>
+
+    <div class="demo-grid">
+      <form class="rt-card demo-stack" id="demo-form" novalidate aria-labelledby="h-form">
+        <h3 class="rt-subtitle" id="h-form">Account</h3>
+        <label class="rt-field"><span>Display name</span><input name="name" autocomplete="off" value="Player One"></label>
+        <label class="rt-field" data-invalid><span>Email</span><input name="email" type="email" value="not-an-email"
+               aria-invalid="true" aria-describedby="email-hint"><small class="rt-field__hint" id="email-hint">Use a full address.</small></label>
+        <label class="rt-field"><span>Region</span>
+          <select name="region"><option>North</option><option>South</option><option>East</option><option>West</option></select>
+        </label>
+        <label class="rt-field"><span>Notes</span><textarea name="notes" rows="3">Insert coin to continue.</textarea></label>
+        <label class="demo-row"><input type="checkbox" checked> <span>Email me release notes</span></label>
+        <label class="rt-switch"><input type="checkbox" role="switch"> <span>Two-step sign-in</span></label>
+        <div class="rt-actions">
+          <button class="rt-btn rt-btn-primary" type="submit">Save</button>
+          <button class="rt-btn rt-btn-neutral" type="reset">Reset</button>
+        </div>
+        <div class="rt-alert rt-alert-success" role="status" id="form-saved" hidden><span><strong>Saved.</strong> (demo: nothing is sent)</span></div>
+      </form>
+
+      <section class="rt-card demo-stack" aria-labelledby="h-tabs">
+        <h3 class="rt-subtitle" id="h-tabs">Tabs</h3>
+        <div class="rt-tabs" role="tablist" aria-label="Settings">
+          <button class="rt-tab" role="tab" type="button" id="tab-1" aria-selected="true" aria-controls="panel-1">General</button>
+          <button class="rt-tab" role="tab" type="button" id="tab-2" aria-selected="false" aria-controls="panel-2" tabindex="-1">Display</button>
+          <button class="rt-tab" role="tab" type="button" id="tab-3" aria-selected="false" aria-controls="panel-3" tabindex="-1">Sound</button>
+        </div>
+        <div class="rt-tab-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">
+          <p class="demo-note">General settings. Arrow keys move between tabs.</p>
+        </div>
+        <div class="rt-tab-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" hidden>
+          <p class="demo-note">Display settings: scanlines, glow strength, colour profile.</p>
+        </div>
+        <div class="rt-tab-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" hidden>
+          <p class="demo-note">Sound settings: master volume, interface beeps.</p>
+        </div>
+        <div class="demo-row">
+          <span class="rt-tooltip" tabindex="0" aria-describedby="tip-1">
+            <span class="rt-tag rt-tag-info">Hover me</span>
+            <span class="rt-tooltip__tip" role="tooltip" id="tip-1">Tooltips show on hover and keyboard focus.</span>
+          </span>
+          <button class="rt-btn rt-btn-secondary rt-btn-small" type="button" id="open-dialog">Open dialog</button>
+        </div>
+      </section>
+    </div>
+
+    <dialog class="rt-dialog" id="demo-dialog" aria-labelledby="dialog-title">
+      <h2 id="dialog-title">Continue?</h2>
+      <p>Dialogs power on like an old TV. Escape or the buttons close this one.</p>
+      <div class="rt-dialog__actions">
+        <button class="rt-btn rt-btn-neutral" type="button" data-close>Cancel</button>
+        <button class="rt-btn rt-btn-primary" type="button" data-close>Continue</button>
+      </div>
+    </dialog>
+
+    <header class="rt-page-header demo-section" id="data">
+      <h2 class="rt-title" data-rt-glitch>Data</h2>
+      <p>14 records loaded</p>
+    </header>
+
+    <div class="demo-layout">
+      <nav class="rt-sidebar" aria-label="Sections">
+        <p class="rt-sidebar__title">Reports</p>
+        <a href="#data" aria-current="page">Overview</a>
+        <a href="#data">Throughput</a>
+        <a href="#data">Errors</a>
+        <a href="#data">Archive</a>
+      </nav>
+
+      <div class="demo-stack">
+        <nav aria-label="Breadcrumb">
+          <ol class="rt-breadcrumbs">
+            <li><a href="#data">Home</a></li>
+            <li><a href="#data">Reports</a></li>
+            <li aria-current="page">Overview</li>
+          </ol>
+        </nav>
+
+        <div class="rt-table-wrap">
+          <table class="rt-table">
+            <caption>Jobs this week</caption>
+            <thead>
+              <tr><th scope="col">Job</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col" class="rt-num">Runs</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Nightly build</td><td>Build bot</td><td><span class="rt-tag rt-tag-success">Passing</span></td><td class="rt-num">42</td></tr>
+              <tr><td>Asset sync</td><td>Studio</td><td><span class="rt-tag rt-tag-warning">Slow</span></td><td class="rt-num">17</td></tr>
+              <tr><td>Report export</td><td>Finance</td><td><span class="rt-tag rt-tag-danger">Failed</span></td><td class="rt-num">3</td></tr>
+              <tr><td>Backup</td><td>Ops</td><td><span class="rt-tag rt-tag-success">Passing</span></td><td class="rt-num">7</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav aria-label="Pages">
+          <ul class="rt-pagination" id="demo-pages">
+            <li><a href="#data" aria-label="Previous page" aria-disabled="true">&#9664;</a></li>
+            <li><a href="#data" aria-current="page">1</a></li>
+            <li><a href="#data">2</a></li>
+            <li><a href="#data">3</a></li>
+            <li><a href="#data" aria-label="Next page">&#9654;</a></li>
+          </ul>
+        </nav>
+
+        <div class="rt-terminal">
+          <div class="rt-terminal__bar"><span>deploy.log</span></div>
+          <pre><code><span class="rt-prompt">npm run build</span>
+compiled 214 modules in 3.2 s
+<span class="rt-prompt">npm test</span>
+PASS  38 suites, 412 tests
+<span class="rt-cursor">ready</span></code></pre>
+        </div>
+
+        <div class="rt-empty">
+          <p class="rt-empty__code">No data</p>
+          <h3>Nothing archived yet</h3>
+          <p>Finished jobs land here after 30 days.</p>
+          <button class="rt-btn rt-btn-primary rt-btn-small" type="button">Insert coin</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-grid">
+      <section class="rt-card rt-card-hover" data-rt-reveal aria-labelledby="h-ident">
+        <h3 class="rt-subtitle" id="h-ident">Ident mark</h3>
+        <div class="rt-mark rt-mark--contain demo-ident">
+          <span class="rt-mark__stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="rt-mark__ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="46"></circle></svg>
+            <img src="../../logo/normal/bird-transparent.png" alt="" width="48" height="48">
+          </span>
+          <span class="rt-mark__word"><span class="rt-mark__name">Neon</span><span class="rt-mark__tag">UI KIT</span></span>
+        </div>
+      </section>
+      <section class="rt-card rt-card-hover rt-prose" data-rt-reveal aria-labelledby="h-type">
+        <h3 class="rt-subtitle" id="h-type">Type and links</h3>
+        <p>Body copy in Space Grotesk. Inline <code>code</code> in VT323. A <a href="#components">plain link</a> inside
+          prose, and a styled one:</p>
+        <a class="rt-link" href="#components">Back to components</a>
+        <span class="rt-trail" aria-hidden="true"></span>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rt-footer rt-container">
+    <span>Neon App demo. MIT license.</span>
+    <span data-rt-fx-slot></span>
+  </footer>
+</div>
+
+<script>
+  /* Demo widgets only (tabs, dialog, form, pagination). retro.js handles the look and the global effects. */
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".rt-tab"));
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      tab.focus();
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(tab); });
+      tab.addEventListener("keydown", function (event) {
+        var step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+        if (step) {
+          event.preventDefault();
+          select(tabs[(i + step + tabs.length) % tabs.length]);
+        }
+      });
+    });
+
+    var dialog = document.getElementById("demo-dialog");
+    document.getElementById("open-dialog").addEventListener("click", function () { dialog.showModal(); });
+    dialog.querySelectorAll("[data-close]").forEach(function (button) {
+      button.addEventListener("click", function () { dialog.close(); });
+    });
+
+    document.getElementById("demo-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      document.getElementById("form-saved").hidden = false;
+    });
+
+    var pages = document.getElementById("demo-pages");
+    pages.addEventListener("click", function (event) {
+      var link = event.target.closest("a");
+      if (!link || !/^\d+$/.test(link.textContent)) {
+        return;
+      }
+      event.preventDefault();
+      pages.querySelectorAll("[aria-current]").forEach(function (a) { a.removeAttribute("aria-current"); });
+      link.setAttribute("aria-current", "page");
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!-- retro-neon-ui for WPF, app-wide defaults: merges RetroNeon.xaml and makes its styles the implicit style of each
+     control type, so existing Buttons, TextBoxes, CheckBoxes, ProgressBars, DataGrids, ToolTips and ScrollBars change look
+     without touching their XAML. Merge THIS file in App.xaml instead of RetroNeon.xaml. Opt one control out with
+     Style="{x:Null}" or give it a keyed style (Rt.Button.Primary, Rt.Switch ...). Windows still need
+     Style="{StaticResource Rt.Window}". -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="RetroNeon.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="Button" BasedOn="{StaticResource Rt.Button}" />
+    <Style TargetType="TextBox" BasedOn="{StaticResource Rt.TextBox}" />
+    <Style TargetType="PasswordBox" BasedOn="{StaticResource Rt.PasswordBox}" />
+    <Style TargetType="CheckBox" BasedOn="{StaticResource Rt.CheckBox}" />
+    <Style TargetType="ProgressBar" BasedOn="{StaticResource Rt.ProgressBar}" />
+    <Style TargetType="DataGrid" BasedOn="{StaticResource Rt.DataGrid}" />
+    <Style TargetType="ToolTip" BasedOn="{StaticResource Rt.ToolTip}" />
+    <Style TargetType="ScrollBar" BasedOn="{StaticResource Rt.ScrollBar}" />
+</ResourceDictionary>

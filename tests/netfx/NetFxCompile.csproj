@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compile-only check: the shipped WinForms .cs files and WPF .xaml dictionaries build as a .NET Framework 4.8
+       library with C# 7.3, the newest language version classic .NET Framework projects default to. -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <OutputType>Library</OutputType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\dotnet\winforms\*.cs" Link="RetroNeon\%(Filename)%(Extension)" />
+    <Page Include="..\..\dotnet\wpf\*.xaml" Link="Themes\%(Filename)%(Extension)" />
+    <Resource Include="..\..\dotnet\fonts\*.ttf" Link="Fonts\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

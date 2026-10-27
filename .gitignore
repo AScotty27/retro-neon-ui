@@ -1,0 +1,11 @@
+# Build and test output
+node_modules/
+out/
+bin/
+obj/
+*.user
+.vs/
+__pycache__/
+*.pyc
+logo/tools/work/
+tests/output/

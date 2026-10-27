@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Builds the shipped WPF dictionaries and fonts into a console app that renders a sample offscreen
+       (RenderTargetBitmap, no window). Run: dotnet run -c Release, then the output PNG path after a double dash. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <StartupObject>WpfSmoke.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Include="..\..\dotnet\wpf\RetroColors.xaml" Link="Themes\RetroColors.xaml" />
+    <Page Include="..\..\dotnet\wpf\RetroNeon.xaml" Link="Themes\RetroNeon.xaml" />
+    <Page Include="..\..\dotnet\wpf\RetroNeon.Implicit.xaml" Link="Themes\RetroNeon.Implicit.xaml" />
+    <Resource Include="..\..\dotnet\fonts\*.ttf" Link="Fonts\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>
